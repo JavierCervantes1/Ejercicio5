@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -40,6 +43,7 @@ public class Principal extends javax.swing.JFrame {
         cmdCalcular = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
+        cmdBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,10 +63,24 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel5.setText("Descuento por caja de ahorro");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 220, 20));
+
+        txtSueldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSueldoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtSueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 140, -1));
+
+        txtDesUno.setEditable(false);
         jPanel1.add(txtDesUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 140, -1));
+
+        txtDesDos.setEditable(false);
         jPanel1.add(txtDesDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 140, -1));
+
+        txtDesTres.setEditable(false);
         jPanel1.add(txtDesTres, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 140, -1));
+
+        txtDesCua.setEditable(false);
         jPanel1.add(txtDesCua, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 140, -1));
 
         cmdCalcular.setText("Calcular Descuentos");
@@ -71,21 +89,35 @@ public class Principal extends javax.swing.JFrame {
                 cmdCalcularActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 150, -1));
+        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 150, -1));
 
         jLabel6.setText("Monto total a pagar ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+
+        txtTotal.setEditable(false);
         jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 140, -1));
+
+        cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +127,11 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         String des1, des2, des3, des4, mon;
         double Sueldo, mult1, mult2, mult3, mult4, monto;
+        
+        if (txtSueldo.getText().trim().isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Digite por favor el Sueldo Base", "Error", JOptionPane.ERROR_MESSAGE);
+             txtSueldo.requestFocusInWindow();
+         } else {
         
         Sueldo = Double.parseDouble(txtSueldo.getText());
         
@@ -115,7 +152,30 @@ public class Principal extends javax.swing.JFrame {
         txtDesTres.setText(des3);
         txtDesCua.setText(des4);
         txtTotal.setText(mon);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        // TODO add your handling code here:
+        
+        txtDesCua.setText("");
+        txtDesDos.setText("");
+        txtDesTres.setText("");
+        txtDesUno.setText("");
+        txtSueldo.setText("");
+        txtTotal.setText("");
+        txtSueldo.requestFocusInWindow();
+        
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+         if (!Character.isDigit(c)) {
+              getToolkit().beep();
+              evt.consume();
+         }
+    }//GEN-LAST:event_txtSueldoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -153,6 +213,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdBorrar;
     private javax.swing.JButton cmdCalcular;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
